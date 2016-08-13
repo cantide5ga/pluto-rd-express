@@ -1,0 +1,12 @@
+{
+  "name": "flux-test-rig",
+  "main": "",
+  "globalDependencies": {
+    "jasmine": "registry:dt/jasmine#2.2.0+20160621224255",
+    "node": "registry:env/node#6.0.0+20160723033700"
+  },
+  "dependencies": {
+    "express": "registry:npm/express#4.14.0+20160810205701",
+    "pluto-rd": "npm:pluto-rd"
+  }
+}
