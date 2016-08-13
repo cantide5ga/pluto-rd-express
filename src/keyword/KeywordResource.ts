@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { KeywordService } from './KeywordService';
 import { KeywordResponse } from './KeywordResponse';
+import * as Promise from 'bluebird';
 
 export class KeywordResource {
     private delegate: KeywordService;
@@ -9,12 +10,19 @@ export class KeywordResource {
         this.delegate = new KeywordService();
     }
     
-    public getResponse(): string {
-        const obj: KeywordResponse = {
-            keywords: this.delegate.getKeywords(),
-            entryCount: this.delegate.getEntryCount()
-        }
+    public getResponse(): Promise<string> {
+        return Promise.join(
+            this.delegate.getKeywords(),
+            this.delegate.getEntryCount(),
+            (keywords, entryCount) => {
+                const obj: KeywordResponse = {
+                    keywords: keywords,
+                    entryCount: entryCount
+                }
+                return JSON.stringify(obj);
+            }
+        )
         
-        return JSON.stringify(obj);
+        
     }  
 }

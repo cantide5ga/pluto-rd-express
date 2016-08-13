@@ -1,5 +1,6 @@
 import { EntryResult } from 'pluto-rd';
 import { EntryDao } from '../dao/EntryDao';
+import * as Promise from 'bluebird';
 
 export class EntryService {
     private dao: EntryDao;
@@ -8,7 +9,7 @@ export class EntryService {
         this.dao = new EntryDao();
     }
     
-    public getEntries(keyword, offset, count): EntryResult {
+    public getEntries(keyword, offset, count): Promise<EntryResult> {
         return this.dao.findWithKeywordLimited(keyword, offset, count);
     }
 }

@@ -19,8 +19,8 @@
     "publish:patch": "npm version patch && npm run prepack && npm publish build"
   },
   "dependencies": {
+    "bluebird": "^3.4.1",
     "express": "^4.14.0",
-    "mysql": "^2.11.1",
     "mysql2": "^1.0.0-rc.10"
   },
   "devDependencies": {

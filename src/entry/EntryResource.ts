@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { EntryService } from './EntryService';
 import { EntryRequest } from './EntryRequest';
+import * as Promise from 'bluebird';
 
 export class EntryResource {
     private delegate: EntryService;
@@ -9,11 +10,13 @@ export class EntryResource {
         this.delegate = new EntryService();
     }
     
-    public getEntries(request: Request): string {
+    public getEntries(request: Request): Promise<string> {
         const req = <EntryRequest>request.query;
         
-        const entries = this.delegate
-                        .getEntries(req.keyword, req.offset, req.count); 
-        return JSON.stringify(entries);
+        return this.delegate
+        .getEntries(req.keyword, req.offset, req.count)
+        .then(entries => {
+            return JSON.stringify(entries);    
+        });
     }
 }

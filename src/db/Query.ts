@@ -2,6 +2,7 @@ import { Connection } from './common/Connection';
 import * as factory from './ConnectionFactory';
 import { Vendor } from './ConnectionFactory';
 import { Entry, Keyword } from 'pluto-rd';
+import * as Promise from 'bluebird';
 
 class QueryStatic implements Connection { //as contract
     private connection: Connection;
@@ -10,23 +11,23 @@ class QueryStatic implements Connection { //as contract
         this.connection = factory.of(Vendor.MYSQL);
     }
     
-    public countEntriesWithKeyword(handle: string): number {
+    public countEntriesWithKeyword(handle: string): Promise<number> {
         return this.connection
         .countEntriesWithKeyword(handle);
     };
     
     
-    public findEntriesWithKeywordLimited(handle, offset, count): Entry[] {
+    public findEntriesWithKeywordLimited(handle, offset, count): Promise<Entry[]> {
         return this.connection
         .findEntriesWithKeywordLimited(handle, offset, count);
     };
     
-    public findAllKeywords(): Keyword[] {
+    public findAllKeywords(): Promise<Keyword[]> {
         return this.connection
         .findAllKeywords();
     }
     
-    public countAllEntries(): number {
+    public countAllEntries(): Promise<number> {
         return this.connection
         .countAllEntries();
     }    
