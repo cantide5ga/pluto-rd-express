@@ -2,7 +2,7 @@
   "author": "cantide5ga",
   "name": "pluto-rd-express",
   "description": "Node.js back-end for Pluto Rd",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "scripts": {
     "clean": "rm -rf build && rm -rf dist",
     "install:latest": "npm install --save-dev typings@* typescript@* istanbul@* jasmine@*",
