@@ -1,19 +1,20 @@
 import { Keyword } from 'pluto-rd'
-import { KeywordDao } from '../dao/KeywordDao';
 import * as Promise from 'bluebird';
+import { IEntryDao, IKeywordDao } from 'pluto-rd-express';
+import { EntryDao, KeywordDao } from '../dao/DaoFactory';
 
 export class KeywordService {
-    private dao: KeywordDao;
+    private dao: IKeywordDao<Keyword>;
     
     constructor() {
         this.dao = new KeywordDao();
     }
     
     public getKeywords(): Promise<Keyword[]> {
-        return this.dao.findAllKeywords();
+        return this.dao.findAll();
     }
     
     public getEntryCount(): Promise<number> {
-        return this.dao.countEntries();
+        return //this.dao.countEntries();
     }
 }

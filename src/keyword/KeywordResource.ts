@@ -2,15 +2,18 @@ import { Request } from 'express';
 import { KeywordService } from './KeywordService';
 import { KeywordResponse } from './KeywordResponse';
 import * as Promise from 'bluebird';
+import { Resource } from '../common/Resource';
+import { ApiResponse } from '../common/ApiResponse';
 
-export class KeywordResource {
+export class KeywordResource extends Resource {
     private delegate: KeywordService;
     
-    constructor() {
+    constructor(request: Request) {
+        super(request);
         this.delegate = new KeywordService();
     }
     
-    public getResponse(): Promise<string> {
+    public getKeywords(): Promise<ApiResponse> {
         return Promise.join(
             this.delegate.getKeywords(),
             this.delegate.getEntryCount(),
@@ -19,10 +22,8 @@ export class KeywordResource {
                     keywords: keywords,
                     entryCount: entryCount
                 }
-                return JSON.stringify(obj);
+                return ApiResponse.OK(obj);
             }
         )
-        
-        
-    }  
+    }
 }
